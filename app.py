@@ -34,7 +34,12 @@ def processRequest(req):
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
-        return {}
+        return {
+            "speech": "Could not find city",
+            "displayText": "Could not find city",
+            "data": {"slack": {"text": "Could not find city"}},
+            "source": "apiai-weather-webhook-sample"
+        }
     yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
     print(yql_url)
 
